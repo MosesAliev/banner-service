@@ -447,11 +447,11 @@ func updateBannerHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := chi.NewRouter()
 	r.Get("/banner", getAllBannersHandler)
-	r.Get("/userbanner", getUserBannerHandler)
+	r.Get("/user_banner", getUserBannerHandler)
 	r.Post("/banner", newBannerHandler)
 	r.Patch("/banner/{id}", updateBannerHandler)
 	r.Delete("/banner/{id}", deleteBannerHandler)
-	if err := http.ListenAndServe(":8080", r); err != nil {
+	if err := http.ListenAndServe(":3000", r); err != nil {
 		fmt.Printf("Ошибка при запуске сервера: %s", err.Error())
 	}
 

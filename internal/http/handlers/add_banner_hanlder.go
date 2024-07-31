@@ -17,6 +17,7 @@ func AddBannerHandler(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -25,6 +26,7 @@ func AddBannerHandler(c *gin.Context) {
 
 	for _, tagID := range banner.TagIDs {
 		banner.Tags = append(banner.Tags, models.Tag{ID: tagID})
+
 		tagFeatureBanner.TagID = tagID
 		tagFeatureBanner.FeatureID = banner.FeatureID
 		tagFeatureBanner.BannerID = banner.ID
@@ -34,6 +36,7 @@ func AddBannerHandler(c *gin.Context) {
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -41,6 +44,7 @@ func AddBannerHandler(c *gin.Context) {
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -52,6 +56,7 @@ func AddBannerHandler(c *gin.Context) {
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -66,6 +71,7 @@ func AddBannerHandler(c *gin.Context) {
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 

@@ -15,6 +15,7 @@ func UserBannerHandler(c *gin.Context) {
 	if !tagOk {
 		log.Println("Отсутствует тег в запросе")
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -22,6 +23,7 @@ func UserBannerHandler(c *gin.Context) {
 	if !featureOk {
 		log.Println("Отсутствует фича в запросе")
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -32,6 +34,7 @@ func UserBannerHandler(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -39,6 +42,7 @@ func UserBannerHandler(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -46,6 +50,7 @@ func UserBannerHandler(c *gin.Context) {
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 
@@ -56,6 +61,7 @@ func UserBannerHandler(c *gin.Context) {
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
+
 		return
 	}
 

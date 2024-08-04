@@ -10,6 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Создание нового баннера
 func AddBannerHandler(c *gin.Context) {
 	var banner = models.Banner{}
 

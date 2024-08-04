@@ -11,7 +11,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func UpdateBannerHandler(c *gin.Context) {
+// Обновление содержимого баннера
+func EditBannerHandler(c *gin.Context) {
 	var banner models.Banner
 	var err error
 	banner.ID, err = strconv.Atoi(c.Param("id"))
@@ -22,8 +23,18 @@ func UpdateBannerHandler(c *gin.Context) {
 		return
 	}
 
+	var res *gorm.DB
+	res = database.DB.Db.Where("id = ?", banner.ID).First(&models.Banner{})
+
+	if res.Error != nil {
+		log.Println(err)
+		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+
+		return
+	}
+
 	c.BindJSON(&banner)
-	database.DB.Db.Unscoped().Where("banner_id = ?", banner.ID).Delete(models.TagFeatureBanner{})
+	database.DB.Db.Unscoped().Where("banner_id = ?", banner.ID).Delete(&models.TagFeatureBanner{})
 
 	var tagFeatureBanners []models.TagFeatureBanner
 	for _, tagID := range banner.TagIDs {
@@ -36,7 +47,6 @@ func UpdateBannerHandler(c *gin.Context) {
 		tagFeatureBanners = append(tagFeatureBanners, tagFeatureBanner)
 	}
 
-	var res *gorm.DB
 	res = database.DB.Db.Save(&banner.Tags)
 	if res.Error != nil {
 		log.Println(res.Error)

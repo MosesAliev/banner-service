@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Получение баннера для пользователя
 func UserBannerHandler(c *gin.Context) {
 	var tagID, tagOk = c.GetQuery("tag_id")
 	if !tagOk {

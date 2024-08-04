@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Получение всех баннеров c фильтрацией по фиче и/или тегу
 func UserBannersHanlder(c *gin.Context) {
 	var banners []models.Banner
 	var strTagID, tagOK = c.GetQuery("tag_id")

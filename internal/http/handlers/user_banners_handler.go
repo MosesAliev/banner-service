@@ -83,8 +83,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -152,8 +152,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -221,8 +221,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -281,8 +281,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -341,8 +341,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -401,8 +401,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -461,8 +461,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -521,8 +521,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -572,8 +572,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -623,8 +623,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -684,8 +684,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -735,8 +735,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -786,8 +786,8 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			for i := 0; i < len(tagFeatureBanners); i++ {
-				banner.TagIDs = append(banner.TagIDs, tagFeatureBanner.TagID)
+			for i := 0; i < len(thisBannerTagFeature); i++ {
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
 			}
 
 			banners = append(banners, banner)
@@ -798,6 +798,22 @@ func UserBannersHanlder(c *gin.Context) {
 	}
 
 	var res = database.DB.Db.Find(&banners)
+	for i := 0; i < len(banners); i++ {
+		var thisBannerTagFeature []models.TagFeatureBanner
+		res = database.DB.Db.Where("banner_id = ?", banners[i].ID).Find(&thisBannerTagFeature)
+		if res.Error != nil {
+			log.Println(res.Error)
+			c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
+
+			return
+		}
+
+		for j := 0; j < len(thisBannerTagFeature); j++ {
+			banners[i].TagIDs = append(banners[i].TagIDs, thisBannerTagFeature[j].TagID)
+		}
+
+	}
+
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})

@@ -1,11 +1,14 @@
 package models
 
 import (
-	"gorm.io/gorm"
+	"time"
 )
 
 type Banner struct {
-	gorm.Model
+	CreatedAt        time.Time          `json:"-"`
+	UpdatedAt        time.Time          `json:"-"`
+	DeletedAt        time.Time          `json:"-"`
+	ID               int                `json:"banner_id,omitempty"`
 	TagIDs           []int              `json:"tag_ids" gorm:"-"`
 	Tags             []Tag              `json:"-" gorm:"many2many:tag_ids"`
 	FeatureID        int                `json:"feature_id"`

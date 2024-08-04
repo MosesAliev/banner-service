@@ -5,10 +5,10 @@ import (
 )
 
 type TagFeatureBanner struct {
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt time.Time
-	TagID     int `gorm:"primaryKey"`
-	FeatureID int `gorm:"primaryKey"`
-	BannerID  uint
+	CreatedAt time.Time `json:"-"`
+	UpdatedAt time.Time `json:"-"`
+	DeletedAt time.Time `json:"-"`
+	TagID     int       `gorm:"primaryKey"`
+	FeatureID int       `gorm:"primaryKey"`
+	BannerID  int
 }

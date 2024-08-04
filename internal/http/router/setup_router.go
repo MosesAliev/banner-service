@@ -11,5 +11,6 @@ func SetupRouter() *gin.Engine {
 	r.POST("/banner", handlers.AddBannerHandler)
 	r.GET("/user_banner", handlers.UserBannerHandler)
 	r.GET("/banner", handlers.UserBannersHanlder)
+	r.PATCH("/banner/:id", handlers.UpdateBannerHandler)
 	return r
 }

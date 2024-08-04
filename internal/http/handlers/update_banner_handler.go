@@ -5,15 +5,16 @@ import (
 	"banner-service/internal/models"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
-func AddBannerHandler(c *gin.Context) {
-	var banner = models.Banner{}
-
-	var err = c.BindJSON(&banner)
+func UpdateBannerHandler(c *gin.Context) {
+	var banner models.Banner
+	var err error
+	banner.ID, err = strconv.Atoi(c.Param("id"))
 	if err != nil {
 		log.Println(err)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
@@ -21,7 +22,9 @@ func AddBannerHandler(c *gin.Context) {
 		return
 	}
 
-	var res *gorm.DB
+	c.BindJSON(&banner)
+	database.DB.Db.Unscoped().Where("banner_id = ?", banner.ID).Delete(models.TagFeatureBanner{})
+
 	var tagFeatureBanners []models.TagFeatureBanner
 	for _, tagID := range banner.TagIDs {
 		banner.Tags = append(banner.Tags, models.Tag{ID: tagID})
@@ -33,6 +36,7 @@ func AddBannerHandler(c *gin.Context) {
 		tagFeatureBanners = append(tagFeatureBanners, tagFeatureBanner)
 	}
 
+	var res *gorm.DB
 	res = database.DB.Db.Save(&banner.Tags)
 	if res.Error != nil {
 		log.Println(res.Error)
@@ -42,7 +46,6 @@ func AddBannerHandler(c *gin.Context) {
 	}
 
 	res = database.DB.Db.Save(&models.Feature{ID: banner.FeatureID})
-
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -54,7 +57,7 @@ func AddBannerHandler(c *gin.Context) {
 
 	res.Last(&lastAddedFeature)
 	banner.FeatureID = lastAddedFeature.ID
-	res = database.DB.Db.Create(&banner)
+	res = database.DB.Db.Save(&banner)
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -71,11 +74,10 @@ func AddBannerHandler(c *gin.Context) {
 
 	res = database.DB.Db.Create(&tagFeatureBanners)
 	if res.Error != nil {
-		log.Println(res.Error)
-		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+		log.Println(err)
+		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
 
 		return
 	}
 
-	c.IndentedJSON(http.StatusCreated, banner.ID)
 }

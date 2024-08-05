@@ -20,7 +20,7 @@ func EraseBannerHandler(c *gin.Context) {
 		return
 	}
 
-	var res = database.DB.Db.Where("id = ?", ID).First(&models.Banner{})
+	var res = database.DB.Db.Where("id = ?", ID).First(&models.Banner{}) // Ищем баннер в БД
 
 	if res.Error != nil {
 		log.Println(err)
@@ -29,7 +29,7 @@ func EraseBannerHandler(c *gin.Context) {
 		return
 	}
 
-	res = database.DB.Db.Unscoped().Where("banner_id = ?", ID).Delete(&models.TagFeatureBanner{})
+	res = database.DB.Db.Unscoped().Where("banner_id = ?", ID).Delete(&models.TagFeatureBanner{}) // Удаляем все теги и фичу баннера
 
 	if res.Error != nil {
 		log.Println(err)
@@ -39,7 +39,7 @@ func EraseBannerHandler(c *gin.Context) {
 
 	}
 
-	res = database.DB.Db.Unscoped().Where("id = ?", ID).Delete(&models.Banner{})
+	res = database.DB.Db.Unscoped().Where("id = ?", ID).Delete(&models.Banner{}) // Удаляем баннер в БД
 	if res.Error != nil {
 		log.Println(err)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})

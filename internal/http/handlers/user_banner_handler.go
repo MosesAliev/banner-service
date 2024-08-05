@@ -12,7 +12,7 @@ import (
 
 // Получение баннера для пользователя
 func UserBannerHandler(c *gin.Context) {
-	var tagID, tagOk = c.GetQuery("tag_id")
+	var tagID, tagOk = c.GetQuery("tag_id") // проверяем наличие тега в запросе и получаем его
 	if !tagOk {
 		log.Println("Отсутствует тег в запросе")
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
@@ -20,7 +20,7 @@ func UserBannerHandler(c *gin.Context) {
 		return
 	}
 
-	var featureID, featureOk = c.GetQuery("feature_id")
+	var featureID, featureOk = c.GetQuery("feature_id") // проверяем наличие фичи в запросе и получаем его
 	if !featureOk {
 		log.Println("Отсутствует фича в запросе")
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
@@ -28,7 +28,7 @@ func UserBannerHandler(c *gin.Context) {
 		return
 	}
 
-	var tagFeatureBanner = models.TagFeatureBanner{}
+	var tagFeatureBanner = models.TagFeatureBanner{} // объект содержит запись тега и фичи для однозначного определения баннера
 
 	var err error
 	tagFeatureBanner.TagID, err = strconv.Atoi(tagID)
@@ -47,7 +47,7 @@ func UserBannerHandler(c *gin.Context) {
 		return
 	}
 
-	var res = database.DB.Db.First(&tagFeatureBanner)
+	var res = database.DB.Db.First(&tagFeatureBanner) // находим ID баннера
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
@@ -58,7 +58,7 @@ func UserBannerHandler(c *gin.Context) {
 	var banner = models.Banner{}
 
 	banner.ID = tagFeatureBanner.BannerID
-	res = database.DB.Db.First(&banner)
+	res = database.DB.Db.First(&banner) // Ищем информацию о баннере в БД
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -66,5 +66,5 @@ func UserBannerHandler(c *gin.Context) {
 		return
 	}
 
-	c.IndentedJSON(http.StatusOK, banner.Content)
+	c.IndentedJSON(http.StatusOK, banner.Content) // Пишем в тело ответа содержимое баннера
 }

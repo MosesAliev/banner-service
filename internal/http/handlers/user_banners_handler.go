@@ -13,12 +13,12 @@ import (
 // Получение всех баннеров c фильтрацией по фиче и/или тегу
 func UserBannersHanlder(c *gin.Context) {
 	var banners []models.Banner
-	var strTagID, tagOK = c.GetQuery("tag_id")
-	var strFeatureID, featureOK = c.GetQuery("feature_id")
-	var strLimit, limitOK = c.GetQuery("limit")
-	var strOffset, offsetOK = c.GetQuery("offset")
+	var strTagID, tagOK = c.GetQuery("tag_id")             // Получаем параметры для фильтрации
+	var strFeatureID, featureOK = c.GetQuery("feature_id") //
+	var strLimit, limitOK = c.GetQuery("limit")            //
+	var strOffset, offsetOK = c.GetQuery("offset")         //
 	if tagOK && featureOK && limitOK && offsetOK {
-		var tagFeatureBanners []models.TagFeatureBanner
+		var tagFeatureBanners []models.TagFeatureBanner // Список тегов фич и баннеров
 		var err error
 		var tagID int
 		tagID, err = strconv.Atoi(strTagID)
@@ -56,6 +56,7 @@ func UserBannersHanlder(c *gin.Context) {
 			return
 		}
 
+		// Применяем параметры для поиска
 		var res = database.DB.Db.Limit(limit).Offset(offset).Where("tag_id = ?", tagID).Or("feature_id = ?", featureID).Find(&tagFeatureBanners)
 		if res.Error != nil {
 			log.Println(res.Error)
@@ -64,6 +65,7 @@ func UserBannersHanlder(c *gin.Context) {
 			return
 		}
 
+		// Перебираем полученный список
 		for _, tagFeatureBanner := range tagFeatureBanners {
 			var banner = models.Banner{}
 
@@ -75,7 +77,7 @@ func UserBannersHanlder(c *gin.Context) {
 				return
 			}
 
-			var thisBannerTagFeature []models.TagFeatureBanner
+			var thisBannerTagFeature []models.TagFeatureBanner // список всех тегов и фич конкретного баннера
 			res = database.DB.Db.Where("banner_id = ?", banner.ID).Find(&thisBannerTagFeature)
 			if res.Error != nil {
 				log.Println(res.Error)
@@ -85,13 +87,13 @@ func UserBannersHanlder(c *gin.Context) {
 			}
 
 			for i := 0; i < len(thisBannerTagFeature); i++ {
-				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID)
+				banner.TagIDs = append(banner.TagIDs, thisBannerTagFeature[i].TagID) // добавляем в список тегов баннера идентификаторы тегов
 			}
 
 			banners = append(banners, banner)
 		}
 
-		c.IndentedJSON(http.StatusOK, banners)
+		c.IndentedJSON(http.StatusOK, banners) // записываем в тело ответа список полученных баннеров
 		return
 	}
 

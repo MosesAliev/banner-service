@@ -24,6 +24,7 @@ func AddBannerHandler(c *gin.Context) {
 
 	var res *gorm.DB
 	var tagFeatureBanners []models.TagFeatureBanner
+	// Создаем список тегов с фичей баннера
 	for _, tagID := range banner.TagIDs {
 		banner.Tags = append(banner.Tags, models.Tag{ID: tagID})
 
@@ -34,7 +35,7 @@ func AddBannerHandler(c *gin.Context) {
 		tagFeatureBanners = append(tagFeatureBanners, tagFeatureBanner)
 	}
 
-	res = database.DB.Db.Save(&banner.Tags)
+	res = database.DB.Db.Save(&banner.Tags) // Добавляем теги баннера в БД
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -42,7 +43,7 @@ func AddBannerHandler(c *gin.Context) {
 		return
 	}
 
-	res = database.DB.Db.Save(&models.Feature{ID: banner.FeatureID})
+	res = database.DB.Db.Save(&models.Feature{ID: banner.FeatureID}) // Добавляем фичу баннера в БД
 
 	if res.Error != nil {
 		log.Println(res.Error)
@@ -55,7 +56,7 @@ func AddBannerHandler(c *gin.Context) {
 
 	res.Last(&lastAddedFeature)
 	banner.FeatureID = lastAddedFeature.ID
-	res = database.DB.Db.Create(&banner)
+	res = database.DB.Db.Create(&banner) // Добавляем баннер в БД
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -70,7 +71,7 @@ func AddBannerHandler(c *gin.Context) {
 		tagFeatureBanners[i].BannerID = lastAddedBanner.ID
 	}
 
-	res = database.DB.Db.Create(&tagFeatureBanners)
+	res = database.DB.Db.Create(&tagFeatureBanners) // Добавляем теги фичи баннеры в БД
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})

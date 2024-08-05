@@ -24,7 +24,7 @@ func EditBannerHandler(c *gin.Context) {
 	}
 
 	var res *gorm.DB
-	res = database.DB.Db.Where("id = ?", banner.ID).First(&models.Banner{})
+	res = database.DB.Db.Where("id = ?", banner.ID).First(&models.Banner{}) // Ищем ID баннера в БД
 
 	if res.Error != nil {
 		log.Println(err)
@@ -34,8 +34,9 @@ func EditBannerHandler(c *gin.Context) {
 	}
 
 	c.BindJSON(&banner)
-	database.DB.Db.Unscoped().Where("banner_id = ?", banner.ID).Delete(&models.TagFeatureBanner{})
+	database.DB.Db.Unscoped().Where("banner_id = ?", banner.ID).Delete(&models.TagFeatureBanner{}) // Удаляем устаревшую информацию о баннере
 
+	// Создаем список тегов с фичей баннера
 	var tagFeatureBanners []models.TagFeatureBanner
 	for _, tagID := range banner.TagIDs {
 		banner.Tags = append(banner.Tags, models.Tag{ID: tagID})
@@ -47,7 +48,7 @@ func EditBannerHandler(c *gin.Context) {
 		tagFeatureBanners = append(tagFeatureBanners, tagFeatureBanner)
 	}
 
-	res = database.DB.Db.Save(&banner.Tags)
+	res = database.DB.Db.Save(&banner.Tags) // Добавляем теги баннера в БД
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -55,7 +56,7 @@ func EditBannerHandler(c *gin.Context) {
 		return
 	}
 
-	res = database.DB.Db.Save(&models.Feature{ID: banner.FeatureID})
+	res = database.DB.Db.Save(&models.Feature{ID: banner.FeatureID}) // Добавляем фичу баннера в БД
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -67,7 +68,7 @@ func EditBannerHandler(c *gin.Context) {
 
 	res.Last(&lastAddedFeature)
 	banner.FeatureID = lastAddedFeature.ID
-	res = database.DB.Db.Save(&banner)
+	res = database.DB.Db.Save(&banner) // Сохраняем баннер в БД
 	if res.Error != nil {
 		log.Println(res.Error)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
@@ -82,7 +83,7 @@ func EditBannerHandler(c *gin.Context) {
 		tagFeatureBanners[i].BannerID = lastAddedBanner.ID
 	}
 
-	res = database.DB.Db.Create(&tagFeatureBanners)
+	res = database.DB.Db.Create(&tagFeatureBanners) // Добавляем теги фичи баннеры в БД
 	if res.Error != nil {
 		log.Println(err)
 		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})

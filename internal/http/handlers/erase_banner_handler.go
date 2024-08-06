@@ -12,6 +12,13 @@ import (
 
 // Удаление баннера по идентификатору
 func EraseBannerHandler(c *gin.Context) {
+	// проверка прав доступа
+	var role = c.GetHeader("role")
+	if role != "admin" {
+		c.Status(http.StatusForbidden)
+		return
+	}
+
 	var ID, err = strconv.Atoi(c.Param("id"))
 	if err != nil {
 		log.Println(err)
@@ -37,6 +44,14 @@ func EraseBannerHandler(c *gin.Context) {
 
 		return
 
+	}
+
+	res = database.DB.Db.Exec("DELETE FROM tag_ids WHERE banner_id = ?", ID)
+	if res.Error != nil {
+		log.Println(err)
+		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
+
+		return
 	}
 
 	res = database.DB.Db.Unscoped().Where("id = ?", ID).Delete(&models.Banner{}) // Удаляем баннер в БД

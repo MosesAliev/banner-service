@@ -12,6 +12,13 @@ import (
 
 // Получение всех баннеров c фильтрацией по фиче и/или тегу
 func UserBannersHanlder(c *gin.Context) {
+	// проверка прав доступа
+	var role = c.GetHeader("role")
+	if role != "user" {
+		c.Status(http.StatusForbidden)
+		return
+	}
+
 	var banners []models.Banner
 	var strTagID, tagOK = c.GetQuery("tag_id")             // Получаем параметры для фильтрации
 	var strFeatureID, featureOK = c.GetQuery("feature_id") //

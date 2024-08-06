@@ -12,6 +12,12 @@ import (
 
 // Получение баннера для пользователя
 func UserBannerHandler(c *gin.Context) {
+	var role = c.GetHeader("role")
+	if role != "user" {
+		c.Status(http.StatusForbidden)
+		return
+	}
+
 	var tagID, tagOk = c.GetQuery("tag_id") // проверяем наличие тега в запросе и получаем его
 	if !tagOk {
 		log.Println("Отсутствует тег в запросе")

@@ -13,6 +13,13 @@ import (
 
 // Обновление содержимого баннера
 func EditBannerHandler(c *gin.Context) {
+	// проверка прав доступа
+	var role = c.GetHeader("role")
+	if role != "admin" {
+		c.Status(http.StatusForbidden)
+		return
+	}
+
 	var banner models.Banner
 	var err error
 	banner.ID, err = strconv.Atoi(c.Param("id"))
@@ -35,6 +42,14 @@ func EditBannerHandler(c *gin.Context) {
 
 	c.BindJSON(&banner)
 	database.DB.Db.Unscoped().Where("banner_id = ?", banner.ID).Delete(&models.TagFeatureBanner{}) // Удаляем устаревшую информацию о баннере
+
+	res = database.DB.Db.Exec("DELETE FROM tag_ids WHERE banner_id = ?", banner.ID)
+	if res.Error != nil {
+		log.Println(err)
+		c.IndentedJSON(http.StatusInternalServerError, models.ErrorResponse{Error: "string"})
+
+		return
+	}
 
 	// Создаем список тегов с фичей баннера
 	var tagFeatureBanners []models.TagFeatureBanner

@@ -12,6 +12,13 @@ import (
 
 // Создание нового баннера
 func AddBannerHandler(c *gin.Context) {
+	// проверка прав доступа
+	var role = c.GetHeader("role")
+	if role != "admin" {
+		c.Status(http.StatusForbidden)
+		return
+	}
+
 	var banner = models.Banner{}
 
 	var err = c.BindJSON(&banner)

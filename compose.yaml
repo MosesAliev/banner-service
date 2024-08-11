@@ -22,7 +22,7 @@ services:
       - "8080:8080"
     volumes:
       - .:/usr/src/app
-    command: go run /usr/src/app/...
+    command: tail -F anything
   
    
   

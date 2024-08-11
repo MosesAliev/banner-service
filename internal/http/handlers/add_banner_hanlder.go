@@ -14,7 +14,7 @@ import (
 func AddBannerHandler(c *gin.Context) {
 	// проверка прав доступа
 	var role = c.GetHeader("role")
-	if role != "admin" {
+	if role != "admin" && role != "user" {
 		c.Status(http.StatusForbidden)
 		return
 	}

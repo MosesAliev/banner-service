@@ -12,8 +12,9 @@ import (
 
 // Получение баннера для пользователя
 func UserBannerHandler(c *gin.Context) {
+	// проверка прав доступа
 	var role = c.GetHeader("role")
-	if role != "user" {
+	if role != "user" && role != "admin" {
 		c.Status(http.StatusForbidden)
 		return
 	}
@@ -56,7 +57,7 @@ func UserBannerHandler(c *gin.Context) {
 	var res = database.DB.Db.First(&tagFeatureBanner) // находим ID баннера
 	if res.Error != nil {
 		log.Println(res.Error)
-		c.IndentedJSON(http.StatusBadRequest, models.ErrorResponse{Error: "string"})
+		c.IndentedJSON(http.StatusNotFound, models.ErrorResponse{Error: "string"})
 
 		return
 	}

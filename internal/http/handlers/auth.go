@@ -19,6 +19,7 @@ func Auth(next func(c *gin.Context)) func(c *gin.Context) {
 
 		}()
 
+		log.Println(c.GetHeader("Authorization"))
 		token := strings.Split(c.GetHeader("Authorization"), " ")[1]
 
 		secretKey := []byte("auth")
@@ -41,6 +42,7 @@ func Auth(next func(c *gin.Context)) func(c *gin.Context) {
 			return
 		}
 
+		log.Println(role)
 		c.Request.Header.Add("role", role)
 		next(c)
 	}

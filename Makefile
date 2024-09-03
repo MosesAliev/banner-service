@@ -1,12 +1,19 @@
 build:
 	docker build --tag my-app:v1 .
 
-run:
-	docker compose up -d
 
-test: run
+
+test:
+	docker compose down
+	docker compose up -d
 	docker compose exec web go test ./internal/tests/...
 	docker compose down
 
-server: run
+server:
+	docker compose down
+	docker compose up -d
 	docker compose exec web go run ./...
+
+
+kill:
+	docker compose down

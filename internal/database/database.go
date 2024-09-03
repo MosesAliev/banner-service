@@ -22,6 +22,14 @@ func ConnectDB() {
 	// Имя пользователя базы данных, пароль и имя базы данных
 	// берутся из переменных окружения,
 	// они описаны в файле .env
+	// projectName := regexp.MustCompile(`^(.*` + "banner-service" + `)`)
+	// currentWorkDirectory, _ := os.Getwd()
+	// rootPath := projectName.Find([]byte(currentWorkDirectory))
+	// if err := godotenv.Load(string(rootPath) + `/.env`); err != nil {
+	// 	log.Print("No .env file found")
+	// 	return
+	// }
+
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Europe/Moscow",
 		os.Getenv("DB_HOST"),
@@ -30,6 +38,8 @@ func ConnectDB() {
 		os.Getenv("DB_NAME"),
 		os.Getenv("DB_PORT"),
 	)
+
+	log.Println(dsn)
 	// создаём подключение к базе данных.
 	// В &gorm.Config настраивается логер,
 	// который будет сохранять информацию

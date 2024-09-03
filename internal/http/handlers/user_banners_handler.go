@@ -14,7 +14,7 @@ import (
 func UserBannersHanlder(c *gin.Context) {
 	// проверка прав доступа
 	var role = c.GetHeader("role")
-	if role != "user" {
+	if role != "user" && role != "admin" {
 		c.Status(http.StatusForbidden)
 		return
 	}
